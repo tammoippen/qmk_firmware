@@ -34,10 +34,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   // _FN: Funktion Layer
   [_FN] = LAYOUT_iso(
-             _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,     KC_SYSTEM_SLEEP,
-    _______, _______, MO(_QMK), _______, _______, _______, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3,  _______, _______, _______,              KC_SYSTEM_WAKE,
-    _______, _______,  _______, _______, _______, _______, _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R,  _______, _______, _______, KC_KP_ENTER, _______,
-    _______, _______,  _______, RGB_MOD, RGB_TOG, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______,  _______, _______, _______, KC_PGUP,     _______,
+             _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,      KC_SYSTEM_SLEEP,
+    _______, _______, MO(_QMK), _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,              KC_SYSTEM_WAKE,
+    KC_F16,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, KC_KP_ENTER, KC_F14,
+    _______, _______,  _______, RGB_MOD, RGB_TOG, _______, _______, _______, KC_MSTP, KC_MPLY, KC_MRWD,  KC_MFFD, _______, _______, KC_PGUP,     KC_F15,
     _______, _______,  _______, _______,                            _______,                   _______,  _______, _______, KC_HOME, KC_PGDN,     KC_END
   ),
 
