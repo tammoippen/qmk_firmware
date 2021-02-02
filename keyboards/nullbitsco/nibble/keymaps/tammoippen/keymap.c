@@ -53,32 +53,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_90; }
 
 void oled_task_user(void) {
 
-  // oled_clear();
-
   switch (get_highest_layer(layer_state)) {
-      case _BL:
-          oled_write_ln_P(PSTR("             QWERTY"), false);
-          break;
-      case _FN:
-          oled_write_ln_P(PSTR("             FN"), false);
-          break;
-      default:
-          // Or use the write_ln shortcut over adding '\n' to the end of your string
-          oled_write_ln_P(PSTR("             Undefined"), false);
+    case _BL:
+      oled_write_ln_P(PSTR("Base"), false);
+      break;
+    case _FN:
+      oled_write_ln_P(PSTR(" FN"), false);
+      break;
+    default:
+      oled_write_ln_P(PSTR("Undefined"), false);
   }
-  #ifdef RGBLIGHT_ENABLE
-    static char rgbStatusLine1[26] = {0};
-    snprintf(rgbStatusLine1, sizeof(rgbStatusLine1), "RGB Mode: %d", rgblight_get_mode());
-    oled_write_ln(rgbStatusLine1, false);
-    static char rgbStatusLine2[26] = {0};
-    snprintf(rgbStatusLine2, sizeof(rgbStatusLine2), "h:%d s:%d v:%d", rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val());
-    oled_write_ln(rgbStatusLine2, false);
-  #endif
-	// char wpm_str[5];
+
+  oled_write_ln(0, false);
+
+  oled_write_ln_P(PSTR("RGB:"), false);
+  static char status[5] = {0};
+  snprintf(status, sizeof(status), "  %2d", rgblight_get_mode());
+  oled_write_ln(status, false);
+
+  oled_write_ln_P(PSTR("HUE:"), false);
+  snprintf(status, sizeof(status), " %3d", rgblight_get_hue());
+  oled_write_ln(status, false);
+
+  oled_write_ln_P(PSTR("SAT:"), false);
+  snprintf(status, sizeof(status), " %3d", rgblight_get_sat());
+  oled_write_ln(status, false);
+
+  oled_write_ln_P(PSTR("VAL:"), false);
+  snprintf(status, sizeof(status), " %3d", rgblight_get_val());
+  oled_write_ln(status, false);
+  // char wpm_str[5];
 	// sprintf(wpm_str, "WPM = %i\n", get_current_wpm());
 	// //oled_write_P(PSTR("\n"), false);
 	// oled_write(wpm_str, false);
