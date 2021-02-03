@@ -22,7 +22,7 @@
 // #define KEYBOARD_REMOTE // Force remote mode
 
 // Workaround for freezing after MacOS sleep
-#define NO_USB_STARTUP_CHECK
+// #define NO_USB_STARTUP_CHECK
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6E61

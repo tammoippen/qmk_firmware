@@ -17,7 +17,10 @@
 
 #define _BL 0
 #define _FN 1
-#define _QMK 31
+
+#define KC_COPY LCTL(KC_C)
+#define KC_PASTE LCTL(KC_V)
+#define KC_FIND LCTL(KC_F)
 
 enum custom_keycodes {
   KC_CUST = SAFE_RANGE,
@@ -28,27 +31,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_iso(
              KC_GRAVE,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_WWW_SEARCH,
     KC_MUTE, KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,          KC_DEL,
-    KC_ESC,  KC_CAPS,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,  KC_NO,
-    KC_NO,   KC_LSFT,   KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_NO,
-    KC_NO,   KC_LCTL,   KC_LGUI, KC_LALT,                            KC_SPC,                    KC_ALGR, MO(_FN), MO(_FN), KC_LEFT, KC_DOWN, KC_RGHT
+    KC_ESC,  KC_CAPS,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,  KC_COPY,
+    KC_NO,   KC_LSFT,   KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PASTE,
+    KC_NO,   KC_LCTL,   KC_LGUI, KC_LALT,                            KC_SPC,                    KC_ALGR, KC_FIND, MO(_FN), KC_LEFT, KC_DOWN, KC_RGHT
   ),
   // _FN: Funktion Layer
   [_FN] = LAYOUT_iso(
              _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,      KC_SYSTEM_SLEEP,
-    RGB_TOG, _______, MO(_QMK), _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,              KC_SYSTEM_WAKE,
-    KC_F16,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, KC_KP_ENTER, KC_F14,
-    _______, _______,  _______, _______, _______, _______, _______, _______, KC_MSTP, KC_MPLY, KC_MPRV,  KC_MNXT, _______, _______, KC_PGUP,     KC_F15,
+    RGB_TOG, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,              KC_F14,
+    KC_F17,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, KC_KP_ENTER, KC_F15,
+    _______, _______,  _______, _______, _______, _______, _______, _______, KC_MSTP, KC_MPLY, KC_MPRV,  KC_MNXT, _______, _______, KC_PGUP,     KC_F16,
     _______, _______,  _______, _______,                            _______,                   _______,  _______, _______, KC_HOME, KC_PGDN,     KC_END
-  ),
-
-  // _QMK: Funktion Layer
-  [_QMK] = LAYOUT_iso(
-             RESET,   EEP_RST,   DEBUG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
-  ),
+  )
 
 };
 
@@ -69,21 +63,27 @@ void oled_task_user(void) {
   }
 
   oled_write_ln(0, false);
+  oled_write_ln(0, false);
+  oled_write_ln(0, false);
+  oled_write_ln(0, false);
+  oled_write_ln(0, false);
+  oled_write_ln(0, false);
+  oled_write_ln(0, false);
 
-  oled_write_ln_P(PSTR("RGB:"), false);
+  oled_write_ln_P(PSTR("RGB"), false);
   static char status[5] = {0};
   snprintf(status, sizeof(status), "  %2d", rgblight_get_mode());
   oled_write_ln(status, false);
 
-  oled_write_ln_P(PSTR("HUE:"), false);
+  oled_write_ln_P(PSTR("HUE"), false);
   snprintf(status, sizeof(status), " %3d", rgblight_get_hue());
   oled_write_ln(status, false);
 
-  oled_write_ln_P(PSTR("SAT:"), false);
+  oled_write_ln_P(PSTR("SAT"), false);
   snprintf(status, sizeof(status), " %3d", rgblight_get_sat());
   oled_write_ln(status, false);
 
-  oled_write_ln_P(PSTR("VAL:"), false);
+  oled_write_ln_P(PSTR("VAL"), false);
   snprintf(status, sizeof(status), " %3d", rgblight_get_val());
   oled_write_ln(status, false);
   // char wpm_str[5];
