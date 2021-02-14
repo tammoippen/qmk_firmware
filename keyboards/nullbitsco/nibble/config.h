@@ -59,3 +59,7 @@
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B4 }
+
+
+// Tab dance stuff
+#define TAPPING_TERM 200
